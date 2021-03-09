@@ -16,6 +16,8 @@ public class GetPositionPlayer : MonoBehaviour
 
     public Vector3 direction;
 
+    public Vector3 position;
+
     private Animator anim;
     
 
@@ -32,27 +34,38 @@ public class GetPositionPlayer : MonoBehaviour
                 // socket.socket.Emit("test-event", direction.x, direction.z, speed);
                 // socket.broadcast.emit('move-client', socket.id, directionX, directionZ, speed);
 
-                // Debug.Log(ev.Data[0]);
+                Debug.Log("move-client");
                 // Debug.Log(name);
                 // Debug.Log(socket.client_id);
                 // GameObject.Find(ev.Data[0].ToString()).transform.position = new Vector3 ((float)ev.Data[1], 1, (float)ev.Data[2]);
                 // elPibe = GameObject.Find(ev.Data[0].ToString()).GetComponent("CharacterController");
                 // new Vector3(direction.x, 0f, direction.z)
 
-                GameObject elpibe = GameObject.Find(ev.Data[0].ToString());
-
+                
+            
 
 
                 if (name.ToString() == ev.Data[0].ToString())
                     {
                         // anim.SetFloat("VelX", (float)ev.Data[1]);
                         // anim.SetFloat("VelY", (float)ev.Data[2]);
+                        GameObject elpibe = GameObject.Find(ev.Data[0].ToString());
+
+
+                        // direction = new Vector3((float)ev.Data[1], 0f, (float)ev.Data[2]).normalized;
+                        // Debug.Log(direction);
                         
-                        direction = new Vector3((float)ev.Data[1], 0f, (float)ev.Data[2]).normalized;
-                        Debug.Log(direction);
-                        
-                        controller.Move(new Vector3((float)ev.Data[1], 0f, (float)ev.Data[2]).normalized * (float)ev.Data[3] * Time.deltaTime);
-                        transform.rotation = Quaternion.Euler(0f, (float)ev.Data[6], 0f);
+                        // controller.Move(new Vector3((float)ev.Data[1], 0f, (float)ev.Data[2]).normalized * (float)ev.Data[3] * Time.deltaTime);
+                        // transform.rotation = Quaternion.Euler(0f, (float)ev.Data[6], 0f);
+
+                        // position.x = (float)ev.Data[4];
+                        // position.z = (float)ev.Data[5];
+
+                        // elpibe.transform.position = new Vector3((float)ev.Data[4], 0, (float)ev.Data[5]);
+                        Debug.Log((float)ev.Data[4]);
+                        //  Debug.Log((float)ev.Data[4]);
+
+                        transform.position = new Vector3((float)ev.Data[4], 0, (float)ev.Data[5]);
 
 
                         // transform.rotation = Quaternion.Euler((float)ev.Data[1], 0, (float)ev.Data[2]);
@@ -64,9 +77,11 @@ public class GetPositionPlayer : MonoBehaviour
                         // Dampen towards the target rotation
                         // transform.rotation = Quaternion.Slerp(transform.rotation, target,  Time.deltaTime * smooth);
 
+                        // controller.Move(new Vector3((float)ev.Data[4], 2f, (float)ev.Data[5]));
 
-
-                        transform.position = new Vector3((float)ev.Data[4], 2f, (float)ev.Data[5]);
+                        // transform.position = new Vector3((float)ev.Data[4], 2f, (float)ev.Data[5]);
+                        // position = new Vector3((float)ev.Data[4], 2f, (float)ev.Data[5]);
+                        // transform.position = new Vector3((float)ev.Data[5], 2f, (float)ev.Data[4]);
                     }
 
             

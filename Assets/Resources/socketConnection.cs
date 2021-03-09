@@ -34,6 +34,7 @@ public class socketConnection : MonoBehaviour
     // public Transform playerScript;
 
     private GameObject playerObject;
+    public GameObject nuevoPlayer;
 
     private Transform myTransform;
 
@@ -75,11 +76,11 @@ public class socketConnection : MonoBehaviour
     public void GetSocketConnection(){
         
         //CONFIG LOCAL
-        // socket = new SocketIO("ws://localhost:3000/socket.io/?EIO=4&transport=websocket");
+        socket = new SocketIO("ws://localhost:3000/socket.io/?EIO=4&transport=websocket");
 
         //CONFIG HEROKU SERVER
 
-        socket = new SocketIO("ws://electronic-server.herokuapp.com/socket.io/?EIO=4&transport=websocket");
+        // socket = new SocketIO("ws://electronic-server.herokuapp.com/socket.io/?EIO=4&transport=websocket");
 
 
         // Debug.Log("GetSocketConnection!");
@@ -98,12 +99,14 @@ public class socketConnection : MonoBehaviour
                 Debug.Log("Socket ID");
                 Debug.Log(ev.Data[2].ToString());
                 
+                
                 // socket.Emit('getUsers');
                 // for (int i = 0; i < (float)ev.Data[1] - 1; i++)
-                for (int i = 0; i < (float)ev.Data[1] - 1; i++)
+                for (int i = 0; i < (float)ev.Data[1]; i++)
                 {
                     Debug.Log("creando nuevo player");
-                    Instantiate(Resources.Load ("player22") as GameObject).name = ev.Data[0][i]["_id"].ToString();
+                    // Instantiate(Resources.Load ("Player22") as GameObject).name = ev.Data[0][i]["_id"].ToString();
+                    Instantiate(nuevoPlayer).name = ev.Data[0][i]["_id"].ToString();
                     // console.log('some=event', socket.id ,directionX, directionZ, speed, positionX, positionZ);
                 }
                 // usersOnline.text = "Users: " + ((float)ev.Data[1]);
@@ -134,7 +137,10 @@ public class socketConnection : MonoBehaviour
         });
 
         socket.On("agregarJugador", (ev) => {
-            Instantiate(Resources.Load ("player22") as GameObject).name = ev.Data[0].ToString();
+            Debug.Log("Un Usuario se a Conectado");
+            Instantiate(nuevoPlayer).name = ev.Data[0].ToString();
+            // Instantiate(Resources.Load ("Player22") as GameObject).name = ev.Data[0].ToString();
+            // Instantiate(nuevoPlayer).name = ev.Data[0][i]["_id"].ToString();
         });
         socket.OnConnectFailed += () => {
             Debug.Log("Connection failed.");
