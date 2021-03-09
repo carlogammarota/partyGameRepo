@@ -28,6 +28,8 @@ public class socketConnection : MonoBehaviour
 
     public Transform target;
 
+    // public Text idClient;
+
     private Transform playerPos;
 
     public string client_id;
@@ -88,9 +90,12 @@ public class socketConnection : MonoBehaviour
         
 
         
-
+        // socket.OnError += (err) => {
         socket.OnOpen += () => {
                 Debug.Log("Connected! BY SOCKETCONNECTION");
+                // Debug.Log(ev[0].ToString());
+                // Debug.Log((float)ev.Data[0]);
+                
                 // socket.Emit("getUsers");
 
         };
@@ -99,27 +104,32 @@ public class socketConnection : MonoBehaviour
                 Debug.Log("Socket ID");
                 Debug.Log(ev.Data[2].ToString());
                 
-                
-                // socket.Emit('getUsers');
-                // for (int i = 0; i < (float)ev.Data[1] - 1; i++)
-                for (int i = 0; i < (float)ev.Data[1]; i++)
+                if (ev.Data[2].ToString() != client_id)
                 {
-                    Debug.Log("creando nuevo player");
-                    // Instantiate(Resources.Load ("Player22") as GameObject).name = ev.Data[0][i]["_id"].ToString();
-                    Instantiate(nuevoPlayer).name = ev.Data[0][i]["_id"].ToString();
-                    // console.log('some=event', socket.id ,directionX, directionZ, speed, positionX, positionZ);
+                    for (int i = 0; i < (float)ev.Data[1] - 1; i++)
+                        {
+                            Debug.Log("creando nuevo player");
+                            // Instantiate(Resources.Load ("Player22") as GameObject).name = ev.Data[0][i]["_id"].ToString();
+                            Instantiate(nuevoPlayer).name = ev.Data[0][i]["_id"].ToString();
+                            // console.log('some=event', socket.id ,directionX, directionZ, speed, positionX, positionZ);
+                        }
                 }
-                // usersOnline.text = "Users: " + ((float)ev.Data[1]);
+                // // socket.Emit('getUsers');
+                // // for (int i = 0; i < (float)ev.Data[1] - 1; i++)
+
+                // // usersOnline.text = "Users: " + ((float)ev.Data[1]);
 
         });
 
 
         socket.On("getIdCliente", (ev) => {
-            // Debug.Log(ev.Data[0].ToString());
-            var id = ev.Data[0].ToString();
-            playerObject = GameObject.Find("/player");
-            playerObject.name = id;
+            Debug.Log(ev.Data[0].ToString());
             client_id = ev.Data[0].ToString();
+            // Debug.Log(ev.Data[0].ToString());
+            // var id = ev.Data[0].ToString();
+            // playerObject = GameObject.Find("/player");
+            // playerObject.name = id;
+            // client_id = ev.Data[0].ToString();
 
         });
 
