@@ -20,12 +20,15 @@ public class ThirdPersonMovement : MonoBehaviour
     float turnSmoothVelocity;
     // Update is called once per frame
 
+    // public Vector3 position;
     private socketConnection socket;
 
     // public SimpleTouchController leftController;
     // public SimpleTouchController rightController;
 	// public SimpleTouchController rightController;
     public Vector3 direction;
+
+    // public Transform carloPosicion;
 
     float horizontal;
     float vertical;
@@ -34,12 +37,13 @@ public class ThirdPersonMovement : MonoBehaviour
 
     void Start() {
         GameObject hand = GameObject.Find("/Socket");
+        // carloPosicion = GetComponent<Transform>();
         socket = hand.GetComponent("socketConnection") as socketConnection;
 
         // anim = GetComponent("Animator");
         // anim = GetComponent<Animator>();
         // sendData();
-        send_ID();
+        // send_ID();
     }
 
     void Update()
@@ -49,15 +53,18 @@ public class ThirdPersonMovement : MonoBehaviour
         vertical = Input.GetAxisRaw("Vertical");
 
 
-        // Debug.Log(horizontal);
-        // Debug.Log(vertical);
+        // Debug.Log("posicion");
+        // Debug.Log(carloPosicion.x);
 
         // anim.SetFloat("VelX", horizontal);
         // anim.SetFloat("VelY", vertical);
+
         direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+
         // Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        Debug.Log(direction);
+        // Debug.Log(direction);
         // Vector3 directionTouch = new Vector3(leftController.GetTouchPosition.x, 0f, leftController.GetTouchPosition.y).normalized;
         // Debug.Log(directionTouch);
 
@@ -97,16 +104,21 @@ public class ThirdPersonMovement : MonoBehaviour
 
         if(direction.magnitude >= 0.1f)
         {
-            
-            sendData();
-            // float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            // float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+
+            // sendData();
+
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
             // transform.rotation = Quaternion.Euler(0f, angle, 0f);
             // Debug.Log(angle);
-            // Vector3 moveDire = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            Vector3 moveDire = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
             // socket.socket.Emit("position", direction.x, direction.z, speed, transform.position.x, transform.position.z, angle);
-            // controller.Move(moveDire.normalized * speed * Time.deltaTime);
+            controller.Move(moveDire.normalized * speed * Time.deltaTime);
+            // socket.socket.Emit("position", 0, 0, speed, transform.position.x, transform.position.z);
+            socket.socket.Emit("position", direction.x, direction.z, speed, transform.position.x, transform.position.z, angle);
+            
             
           
 
@@ -115,14 +127,21 @@ public class ThirdPersonMovement : MonoBehaviour
     }
 
     void sendData(){
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            Debug.Log(angle);
-            Vector3 moveDire = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            
+            // float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            // float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            // Vector3 moveDire = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            // controller.Move(moveDire.normalized * speed * Time.deltaTime);
+            // transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            // transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            // Debug.Log(transform.position.x);
+            
+            
+            // socket.socket.Emit("position", 0, 0, speed, transform.position.x, transform.position.z, 0);
+            // socket.socket.Emit("position", direction.x, direction.z, speed, transform.position.x, transform.position.z, angle);
+            
 
-            socket.socket.Emit("position", direction.x, direction.z, speed, transform.position.x, transform.position.z, angle);
-            controller.Move(moveDire.normalized * speed * Time.deltaTime);
+
     }
 
     void send_ID(){
