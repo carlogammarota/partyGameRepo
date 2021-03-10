@@ -127,11 +127,11 @@ public class socketConnection : MonoBehaviour
         
         if(!stateBool){
             //CONFIG LOCAL
-            socket = new SocketIO("ws://localhost:3000/socket.io/?EIO=4&transport=websocket");
+            // socket = new SocketIO("ws://localhost:3000/socket.io/?EIO=4&transport=websocket");
     
             //CONFIG HEROKU SERVER
 
-            // socket = new SocketIO("ws://electronic-server.herokuapp.com/socket.io/?EIO=4&transport=websocket");
+            socket = new SocketIO("ws://electronic-server.herokuapp.com/socket.io/?EIO=4&transport=websocket");
 
 
             // Debug.Log("GetSocketConnection!");
