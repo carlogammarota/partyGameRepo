@@ -65,6 +65,11 @@
             synchronizationQueue.Clear();
         }
 
+        internal void Disconnect()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Tries to connect to the server.
         /// </summary>
