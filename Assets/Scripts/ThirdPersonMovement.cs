@@ -117,7 +117,7 @@ public class ThirdPersonMovement : MonoBehaviour
             // socket.socket.Emit("position", direction.x, direction.z, speed, transform.position.x, transform.position.z, angle);
             controller.Move(moveDire.normalized * speed * Time.deltaTime);
             // socket.socket.Emit("position", 0, 0, speed, transform.position.x, transform.position.z);
-            socket.socket.Emit("position", direction.x, direction.z, speed, transform.position.x, transform.position.z, angle);
+            socket.socket.Emit("position", direction.x, direction.z, speed, transform.position.x, transform.position.z, angle, transform.position.y);
             
             
           

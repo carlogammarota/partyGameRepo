@@ -65,7 +65,7 @@ public class GetPositionPlayer : MonoBehaviour
                         Debug.Log((float)ev.Data[4]);
                         //  Debug.Log((float)ev.Data[4]);
 
-                        transform.position = new Vector3((float)ev.Data[4], 0, (float)ev.Data[5]);
+                        transform.position = new Vector3((float)ev.Data[4], (float)ev.Data[7], (float)ev.Data[5]);
 
 
                         // transform.rotation = Quaternion.Euler((float)ev.Data[1], 0, (float)ev.Data[2]);
