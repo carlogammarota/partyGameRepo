@@ -108,10 +108,12 @@ public class socketConnection : MonoBehaviour
 
     public void DisconnectSocket(){
         //Hay que chequear esto
+        
         if(stateBool){
+            socket.Emit("disconnect");    
+            // socket.Emit("disconnect");
+            
             socket.Close();
-            socket.Emit("disconnect");
-            State = "Desconectado";
             RestartGame();
             // Destroy(GameObject.Find(client_id));
             
@@ -155,7 +157,7 @@ public class socketConnection : MonoBehaviour
 
                     
                     // Instantiate(Players);
-                    Resources.Load ("Players");
+                    // Resources.Load ("Players");
                     
                     // socket.Disconnect();
 
