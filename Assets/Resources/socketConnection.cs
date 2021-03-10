@@ -15,6 +15,12 @@ public class socketConnection : MonoBehaviour
 	// */
     // Start is called before the first frame update
     // public CharacterController player;
+    // public GameObject Players;
+
+    public Button Connect;
+    public Button Disconnect;
+
+    public string State;
     
     public SocketIO socket;
     // public SocketIO socket { get { return ws; } }
@@ -37,23 +43,38 @@ public class socketConnection : MonoBehaviour
 
     private GameObject playerObject;
     public GameObject nuevoPlayer;
+    public GameObject Player;
 
     private Transform myTransform;
 
+
+    
+    // public bool state;
     // public Transform prefab;
     void Awake()
     {
-        // Instantiate (Resources.Load ("player") as GameObject);
+        
+        // state = false;
+        // public Bool state = false;
+        // var state : boolean = true;
 
+
+        Connect.onClick.AddListener(GetSocketConnection);
+        Disconnect.onClick.AddListener(DisconnectSocket);
+            // .SetActive(false);
+
+        // Connect.GetComponentInChildren(Text).text = "testing";
+        // 
+        
+        // Connect.GetComponent<Renderer>().enabled;
+
+        // Connect.GetComponent<Renderer>().enabled;
 
         
-
-
-        
-        if (socket == null)
-        {
-            GetSocketConnection();    
-        }
+        // if (socket == null)
+        // {
+        //     GetSocketConnection();    
+        // }
         // Instantiate(playerStart, transform.position, transform.rotation);
         // playerStart.name = "carlo";
 
@@ -69,34 +90,54 @@ public class socketConnection : MonoBehaviour
 
     }
 
+
+
     public void getInt(){
         // return socket;
         Debug.Log("Este es el script SOCKETCONNECTION");
         // return socket;
     }
 
+
+    public void DisconnectSocket(){
+        //Hay que chequear esto
+        socket.Emit("disconnect");
+        State = "Desconectado";
+        // Destroy(GameObject.Find(client_id));
+        socket = null;
+        // Connect.GetComponentInChildren<Text>().text = "Connect";
+        // Connect.onClick.AddListener(GetSocketConnection);
+    }
+
     public void GetSocketConnection(){
         
         //CONFIG LOCAL
-        socket = new SocketIO("ws://localhost:3000/socket.io/?EIO=4&transport=websocket");
-
+        // socket = new SocketIO("ws://localhost:3000/socket.io/?EIO=4&transport=websocket");
+ 
         //CONFIG HEROKU SERVER
 
-        // socket = new SocketIO("ws://electronic-server.herokuapp.com/socket.io/?EIO=4&transport=websocket");
+        socket = new SocketIO("ws://electronic-server.herokuapp.com/socket.io/?EIO=4&transport=websocket");
 
 
         // Debug.Log("GetSocketConnection!");
 
         
-
+        
         
         // socket.OnError += (err) => {
         socket.OnOpen += () => {
                 Debug.Log("Connected! BY SOCKETCONNECTION");
                 // Debug.Log(ev[0].ToString());
                 // Debug.Log((float)ev.Data[0]);
+                // Connect.GetComponentInChildren<Text>().text = "Disconnected";
+                State = "Conectado";
+                // Connect.onClick.AddListener(Disconnect);
+                // state = true;
                 
-                // socket.Emit("getUsers");
+                // Instantiate(Players);
+                Resources.Load ("Players");
+                
+                
 
         };
 
@@ -110,7 +151,13 @@ public class socketConnection : MonoBehaviour
                         {
                             Debug.Log("creando nuevo player");
                             // Instantiate(Resources.Load ("Player22") as GameObject).name = ev.Data[0][i]["_id"].ToString();
+
                             Instantiate(nuevoPlayer).name = ev.Data[0][i]["_id"].ToString();
+
+
+                            // Instantiate(ev.Data[0][i]["_id"].ToString());
+                            // nuevoPlayer.name = ev.Data[0][i]["_id"].ToString();
+
                             // console.log('some=event', socket.id ,directionX, directionZ, speed, positionX, positionZ);
                         }
                 }
@@ -125,6 +172,9 @@ public class socketConnection : MonoBehaviour
         socket.On("getIdCliente", (ev) => {
             Debug.Log(ev.Data[0].ToString());
             client_id = ev.Data[0].ToString();
+
+            Instantiate(Player).name = client_id;
+
             // Debug.Log(ev.Data[0].ToString());
             // var id = ev.Data[0].ToString();
             // playerObject = GameObject.Find("/player");
@@ -154,13 +204,20 @@ public class socketConnection : MonoBehaviour
         });
         socket.OnConnectFailed += () => {
             Debug.Log("Connection failed.");
-            StartCoroutine(ExampleCoroutine());
+            State = "Desconectado";
+            // StartCoroutine(ExampleCoroutine());
+            // Connect.GetComponentInChildren<Text>().text = "Connect";
+            // Connect.onClick.AddListener(GetSocketConnection);
         };
         socket.OnClose += () => {
+            State = "Desconectado";
             Debug.Log("Connection closed.");
             Debug.Log("Reconect");
+            
             //  Reconnect(ExampleCoroutine());
-            StartCoroutine(ExampleCoroutine());
+            // StartCoroutine(ExampleCoroutine());
+            // Connect.GetComponentInChildren<Text>().text = "Connect";
+            // Connect.onClick.AddListener(GetSocketConnection);
             // interval
 
         };
@@ -169,7 +226,9 @@ public class socketConnection : MonoBehaviour
         };
 
         socket.Connect();
+        
     }
+
 
     
     
@@ -184,18 +243,18 @@ public class socketConnection : MonoBehaviour
 //         //After we have waited 5 seconds print the time again.
 //         Debug.Log("Finished Coroutine at timestamp : " + Time.time);
 //     }
-     IEnumerator ExampleCoroutine()
-    {
-        //Print the time of when the function is first called.
-        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+    //  IEnumerator ExampleCoroutine()
+    // {
+    //     //Print the time of when the function is first called.
+    //     Debug.Log("Started Coroutine at timestamp : " + Time.time);
 
-        //yield on a new YieldInstruction that waits for 5 seconds.
-        yield return new WaitForSeconds(5);
-        GetSocketConnection();
+    //     //yield on a new YieldInstruction that waits for 5 seconds.
+    //     yield return new WaitForSeconds(5);
+    //     GetSocketConnection();
 
-        //After we have waited 5 seconds print the time again.
-        Debug.Log("Finished Coroutine at timestamp : " + Time.time);
-    }
+    //     //After we have waited 5 seconds print the time again.
+    //     Debug.Log("Finished Coroutine at timestamp : " + Time.time);
+    // }
 
 
 }

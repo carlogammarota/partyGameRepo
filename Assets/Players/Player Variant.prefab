@@ -191,7 +191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4930929722645909153, guid: 5b4c5ebbac6064548afba75b77656320, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4930929722645909154, guid: 5b4c5ebbac6064548afba75b77656320, type: 3}
       propertyPath: m_Center.z
@@ -208,11 +208,11 @@ PrefabInstance:
     - target: {fileID: 4930929722645909155, guid: 5b4c5ebbac6064548afba75b77656320, type: 3}
       propertyPath: controller
       value: 
-      objectReference: {fileID: 7231091620478776692}
+      objectReference: {fileID: 4930929722645909154, guid: 5b4c5ebbac6064548afba75b77656320, type: 3}
     - target: {fileID: 4930929722645909155, guid: 5b4c5ebbac6064548afba75b77656320, type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1767970322618341665, guid: 34a28218f0bea48d4aa62ff2677923ac, type: 3}
     - target: {fileID: 6294649019729157316, guid: 5b4c5ebbac6064548afba75b77656320, type: 3}
       propertyPath: controller
       value: 
@@ -222,10 +222,5 @@ PrefabInstance:
 --- !u!4 &7231091620478776694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4930929722645909152, guid: 5b4c5ebbac6064548afba75b77656320, type: 3}
-  m_PrefabInstance: {fileID: 2321554967867522006}
-  m_PrefabAsset: {fileID: 0}
---- !u!143 &7231091620478776692 stripped
-CharacterController:
-  m_CorrespondingSourceObject: {fileID: 4930929722645909154, guid: 5b4c5ebbac6064548afba75b77656320, type: 3}
   m_PrefabInstance: {fileID: 2321554967867522006}
   m_PrefabAsset: {fileID: 0}
