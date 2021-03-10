@@ -9,7 +9,7 @@
     public class SocketIOConnection {
         class EngineIOHandshakeData {
             public int pingTimeout = 60000;
-            public int pingInterval = 25000;
+            public int pingInterval =   30;
         }
 
         Uri uri;
