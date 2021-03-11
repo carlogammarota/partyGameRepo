@@ -117,7 +117,7 @@ public class socketConnection : MonoBehaviour
             RestartGame();
             // Destroy(GameObject.Find(client_id));
             
-            socket = null;
+            // socket = null;
         }else {
             Debug.Log("Estas Desconectado");
         }
