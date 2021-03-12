@@ -2209,6 +2209,7 @@ GameObject:
   - component: {fileID: 1244989683912527225}
   - component: {fileID: 1244989683912527227}
   - component: {fileID: 1244989683912527226}
+  - component: {fileID: 5634528157752059633}
   m_Layer: 0
   m_Name: playerblend
   m_TagString: Untagged
@@ -2304,6 +2305,24 @@ MonoBehaviour:
   jumpForce: 15
   coll: {fileID: 0}
   reduction: 25
+--- !u!114 &5634528157752059633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2175632339593007912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cad87d9c7d729427cabcbe039cb9162e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: {fileID: 0}
+  controller: {fileID: 1244989683912527224}
+  cam: {fileID: 8912756452467130305, guid: 91a4a86ecf29b4b2da61208a3d42090b, type: 3}
+  speed: 6
+  turnSmoothTime: 0.1
+  direction: {x: 0, y: 0, z: 0}
 --- !u!1 &2175632339647673442
 GameObject:
   m_ObjectHideFlags: 0
